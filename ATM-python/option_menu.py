@@ -77,11 +77,16 @@ class OptionMenu:
                     print("\nChecking Account Balance: " + self._format_money(acc.get_checking_balance()))
                 elif selection == 2:
                     acc.get_checking_withdraw_input()
+                    self._save_accounts()
                 elif selection == 3:
                     acc.get_checking_deposit_input()
+                    self._save_accounts()
                 elif selection == 4:
                     acc.get_transfer_input("Checking")
+                    self._save_accounts()
                 elif selection == 5:
+                    self._view_transaction_history(acc)
+                elif selection == 6:
                     return
                 else:
                     print("\nInvalid Choice.")
