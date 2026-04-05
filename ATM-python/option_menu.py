@@ -47,8 +47,7 @@ class OptionMenu:
                 elif selection == 2:
                     self.get_saving(acc)
                 elif selection == 3:
-                    self.get_checking(acc)
-                    self.get_saving(acc)
+                    self.get_both_balances(acc)
                 elif selection == 4:
                     return
                 else:
