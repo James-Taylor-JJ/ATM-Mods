@@ -1,5 +1,8 @@
+import json, logging, os
 from account import Account
 
+logging.basicConfig(filename='atm_log.txt', level=logging.INFO, format='%(asctime)s | %(message)s')
+DATA_FILE = 'atm_data.json'
 
 class OptionMenu:
     """Handles user interaction and menu navigation for the ATM."""
@@ -67,7 +70,8 @@ class OptionMenu:
                 print(" Type 2 - Withdraw Funds")
                 print(" Type 3 - Deposit Funds")
                 print(" Type 4 - Transfer Funds")
-                print(" Type 5 - Exit")
+                print(" Type 5 - View Transaction History")
+                print(" Type 6 - Exit")
                 selection = int(input("\nChoice: "))
                 if selection == 1:
                     print("\nChecking Account Balance: " + self._format_money(acc.get_checking_balance()))
