@@ -122,7 +122,7 @@ class OptionMenu:
             try:
                 print("\nSavings Account Balance: " + self._format_money(acc.get_saving_balance()))
                 print("\nChecking Account Balance: " + self._format_money(acc.get_checking_balance()))
-                print(" Type 1 - Exit")
+                print("\nType 1 - Exit")
                 selection = int(input("\nChoice: "))
                 if selection == 1:
                     return

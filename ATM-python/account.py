@@ -1,3 +1,5 @@
+import datetime
+
 class Account:
     """Represents a bank account with checking and savings balances."""
 
@@ -6,6 +8,8 @@ class Account:
         self._pin_number = pin_number
         self._checking_balance = checking_balance
         self._saving_balance = saving_balance
+        # NEW: each account keeps its own list of transaction records
+        self._transactions = []
 
     # ------------------------------------------------------------------
     # Getters and Setters
@@ -30,34 +34,50 @@ class Account:
 
     def get_saving_balance(self):
         return self._saving_balance
+    
+    # NEW: returns a copy of the transaction list so callers can't mutate it
+    def get_transactions(self):
+        return list(self._transactions)
 
     # ------------------------------------------------------------------
     # Balance Calculation Methods
     # ------------------------------------------------------------------
 
+    def _record(self, op, acct, amount, balance):                       # NEW
+        self._transactions.append({"time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                   "op": op, "account": acct, "amount": amount, "balance": balance})
+
     def calc_checking_withdraw(self, amount):
         self._checking_balance -= amount
+        self._record("withdraw", "Checking", amount, self._checking_balance)
         return self._checking_balance
 
     def calc_saving_withdraw(self, amount):
         self._saving_balance -= amount
+        self._record("withdraw", "Savings", amount, self._saving_balance)
         return self._saving_balance
 
     def calc_checking_deposit(self, amount):
         self._checking_balance += amount
+        self._record("deposit", "Checking", amount, self._checking_balance)
         return self._checking_balance
 
     def calc_saving_deposit(self, amount):
         self._saving_balance += amount
+        self._record("deposit", "Savings", amount, self._saving_balance)
         return self._saving_balance
 
     def calc_check_transfer(self, amount):
         self._checking_balance -= amount
         self._saving_balance += amount
+        self._record("transfer", "Checking", amount, self._checking_balance)
+        self._record("transfer", "Savings", amount, self._saving_balance)
 
     def calc_saving_transfer(self, amount):
         self._saving_balance -= amount
         self._checking_balance += amount
+        self._record("transfer", "Savings", amount, self._saving_balance)
+        self._record("transfer", "Checking", amount, self._checking_balance)
 
     # ------------------------------------------------------------------
     # Helper
@@ -82,7 +102,11 @@ class Account:
     # ------------------------------------------------------------------
     # User Input Methods – Checking Account
     # ------------------------------------------------------------------
-
+    def _record(self, op, acct, amount, balance):                       # NEW
+        self._transactions.append({"time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                   "op": op, "account": acct, "amount": amount, "balance": balance})
+    
+    
     def get_checking_withdraw_input(self):
         while True:
             print("\nCurrent Checking Account Balance: " + self._format_money(self._checking_balance))
