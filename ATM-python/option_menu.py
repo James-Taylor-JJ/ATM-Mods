@@ -120,23 +120,11 @@ class OptionMenu:
     def get_both_balances(self, acc):
         while True:
             try:
-                print("\nSavings Account: ")
-                print("Checking Account: ")
-                print(" Type 1 - View Balance")
-                print(" Type 2 - Withdraw Funds")
-                print(" Type 3 - Deposit Funds")
-                print(" Type 4 - Transfer Funds")
-                print(" Type 5 - Exit")
+                print("\nSavings Account Balance: " + self._format_money(acc.get_saving_balance()))
+                print("\nChecking Account Balance: " + self._format_money(acc.get_checking_balance()))
+                print(" Type 1 - Exit")
                 selection = int(input("\nChoice: "))
                 if selection == 1:
-                    print("\nSavings Account Balance: " + self._format_money(acc.get_saving_balance()))
-                elif selection == 2:
-                    acc.get_saving_withdraw_input()
-                elif selection == 3:
-                    acc.get_saving_deposit_input()
-                elif selection == 4:
-                    acc.get_transfer_input("Savings")
-                elif selection == 5:
                     return
                 else:
                     print("\nInvalid Choice.")
